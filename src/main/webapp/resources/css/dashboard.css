@@ -1,0 +1,42 @@
+.real-time-container {
+    display: flex;
+    /*min-height: 50px;*/
+    padding: 5px;
+    /*margin: 2px;*/
+    float: left;
+}
+
+.real-time-item {
+    display: flex;
+    width: 100%;
+    background-color: #ffffff;
+    min-height: 50px;
+    border-style: solid;
+    border-radius: 7px;
+    border-width: thin;
+    border-color: #0792ff;
+    padding: 5px;
+    margin: 5px;
+    float: left;
+}
+
+.nav-item {
+    cursor: pointer;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #000000;
+    background-color: #cbcbcb;
+    border-color: #ffffff #dee2e6 #000000;
+}
+.real-time-item h1{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    width: 100%;
+    text-align: center;
+	transform: translate(-50%, -50%);
+}
+
+.double-click-chart {
+    cursor: default;
+}

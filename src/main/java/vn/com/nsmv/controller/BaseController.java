@@ -1,0 +1,58 @@
+package vn.com.nsmv.controller;
+
+import com.google.gson.Gson;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+
+import org.springframework.web.bind.annotation.ModelAttribute;
+import vn.com.nsmv.common.CommonConst;
+import vn.com.nsmv.common.URLConst;
+import vn.com.nsmv.entity.User;
+import vn.com.nsmv.service.UserService;
+
+import javax.servlet.http.HttpServletRequest;
+
+@Controller
+public abstract class BaseController {
+    @Autowired
+    UserService userService;
+
+    static Gson gson;
+
+    private static final Logger logger = LogManager.getLogger(BaseController.class);
+
+    protected User getUser() {
+        try {
+            Authentication authen = SecurityContextHolder.getContext().getAuthentication();
+            if (authen != null) {
+                return userService.getUserInfoByName(authen.getName());
+            } else {
+                return new User();
+            }
+        } catch (Exception ex) {
+            logger.error(CommonConst.COMMON_MESSAGE.USER_NOT_LOGIN, ex);
+            return new User();
+            //throw new RuntimeException(CommonConst.COMMON_MESSAGE.USER_NOT_LOGIN);
+        }
+    }
+    public Gson getGSon() {
+        if(null ==  this.gson){
+            this.gson = new Gson();
+        }
+        return  this.gson;
+    }
+    @ModelAttribute("userLogin")
+    public User userLogin() {
+        return this.getUser();
+    }
+
+
+    @ModelAttribute("currentPath")
+    protected String currentPath(HttpServletRequest request) {
+        return request.getRequestURI().replace(request.getContextPath(), "").replaceAll(URLConst.lang_support_regex, "");
+    }
+}
