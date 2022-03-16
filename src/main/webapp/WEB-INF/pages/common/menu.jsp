@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="vn.com.nsmv.common.CommonConst" %>
-<%@ page import="vn.com.nsmv.common.URLConst" %>
-<%@ page import="vn.com.nsmv.common.CommonCode" %>
+<%@ page import="com.vinhnq.common.CommonConst" %>
+<%@ page import="com.vinhnq.common.URLConst" %>
+<%@ page import="com.vinhnq.common.CommonCode" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
