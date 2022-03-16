@@ -1,2 +1,2 @@
 # SpringBootJSP
-SpringBoot + JSP + hibernate mysqla
+SpringBoot + JSP + hibernate mysql
