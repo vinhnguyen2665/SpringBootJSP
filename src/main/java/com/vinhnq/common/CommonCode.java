@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 //import java.util.Base64;
@@ -76,7 +77,14 @@ public class CommonCode {
             return "";
         }
     }
-
+    public static boolean isEmail(String email) {
+        try {
+            Matcher matcher = CommonConst.REGEX.EMAIL.matcher(email);
+            return matcher.find();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
     /**
      * Class commont code file process
      */

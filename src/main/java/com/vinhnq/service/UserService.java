@@ -26,6 +26,8 @@ public interface UserService {
 
     List<User> getAllUser();
 
+    List<User> getAllUserByHibernate();
+
     /**
      *
      * @param username

@@ -13,18 +13,21 @@ import com.vinhnq.common.CommonConst;
 import com.vinhnq.common.EntityUtils;
 import com.vinhnq.config.security.JwtTokenProvider;
 import com.vinhnq.config.security.SecurityConfig;
+import com.vinhnq.dao.UserDAO;
 import com.vinhnq.entity.User;
 import com.vinhnq.repository.UserRepository;
 import com.vinhnq.service.MailService;
 import com.vinhnq.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 //@Repository
@@ -39,15 +42,19 @@ public class UserServiceImpl implements UserService {
 
     private final MailService mailService;
 
+    private final UserDAO userDAO;
+
     final
     AuthenticationManager authenticationManager;
 
     private final JwtTokenProvider tokenProvider;
 
-    public UserServiceImpl(UserRepository userRepository, SecurityConfig securityConfig, MailService mailService, AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider) {
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, SecurityConfig securityConfig, MailService mailService, UserDAO userDAO, AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider) {
         this.userRepository = userRepository;
         this.securityConfig = securityConfig;
         this.mailService = mailService;
+        this.userDAO = userDAO;
         this.authenticationManager = authenticationManager;
         this.tokenProvider = tokenProvider;
     }
@@ -57,6 +64,22 @@ public class UserServiceImpl implements UserService {
         try {
             User result = userRepository.findByUserName(username);
             if (result == null || (null != result && null == result.getUserName())) {
+                //throw new RuntimeException("username not exist!");
+                return null;
+            } else {
+                return result;
+            }
+        } catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+            throw new RuntimeException(ex);
+        }
+    }
+    @Override
+
+    public List<User> getAllUserByHibernate() {
+        try {
+            List<User> result = userDAO.getAllUsers();
+            if (result == null) {
                 //throw new RuntimeException("username not exist!");
                 return null;
             } else {

@@ -2,12 +2,22 @@ package com.vinhnq.common;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.regex.Pattern;
 
 public class CommonConst {
 	public static class SYSTEM {
 		public static String NAME = "Sensor System";
 		public static String VERSION = "20210627";
 		public static Long ID = 0L;
+	}
+	public static class CONFIG {
+		public final static String JPADataSource = "JPADataSource";
+		public final static String JPAEntityManagerFactory = "JPAEntityManagerFactory";
+		public final static String JPATransactionManager = "JPATransactionManager";
+
+		public final static String HibernateDataSource = "hibernateDataSource";
+		public final static String HibernateSessionFactory = "hibernateSessionFactory";
+		public final static String HibernateTransactionManager = "hibernateTransactionManager";
 	}
 	public static class PAGE_CODE {
 
@@ -237,6 +247,10 @@ public class CommonConst {
 		public static final SimpleDateFormat formatterYYYY_MM = new SimpleDateFormat("yyyy-MM");
 	}
 
+	public static class REGEX{
+		public static final Pattern EMAIL =
+				Pattern.compile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]{1,}\\.[a-zA-Z0-9-]{2,}(?:\\.[a-zA-Z0-9-]{2,})*$", Pattern.CASE_INSENSITIVE);
+	}
 	public static class MAIL{
 		public static String USERNAME = "";
 		public static String PASSWORD = "";
